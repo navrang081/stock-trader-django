@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Stock Trader</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px 0;
+        }
+        .signup-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            padding: 40px;
+            width: 400px;
+        }
+        .brand-icon { font-size: 40px; color: #4cd137; }
+        .btn-primary-custom {
+            background: #4cd137;
+            border: none;
+            padding: 10px;
+            font-weight: 600;
+        }
+        .btn-primary-custom:hover { background: #3fb52e; }
+        .form-control:focus {
+            border-color: #4cd137;
+            box-shadow: 0 0 0 0.2rem rgba(76, 209, 55, 0.25);
+        }
+        .signup-card ul.errorlist {
+            color: #dc3545;
+            font-size: 13px;
+            padding-left: 18px;
+            margin-bottom: 5px;
+        }
+        .signup-card label { font-weight: 500; margin-top: 8px; }
+        .signup-card .form-text { font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div class="signup-card">
+        <div class="text-center mb-4">
+            <i class="fa-solid fa-chart-line brand-icon"></i>
+            <h3 class="mt-2 fw-bold" style="color:#1a1a2e;">Create Account</h3>
+            <p class="text-muted">Start your trading journey — get ₹1,00,000 free!</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.username.errors }}
+
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+
+            <button type="submit" class="btn btn-primary-custom w-100 text-white rounded-3 mt-3">Sign Up</button>
+        </form>
+
+        <p class="text-center mt-3 mb-0 text-muted">
+            Already have an account? <a href="{% url 'login' %}" style="color:#1a1a2e; font-weight:600;">Login</a>
+        </p>
+    </div>
+
+</body>
+</html>

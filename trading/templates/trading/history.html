@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History - Stock Trader</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .navbar-custom { background: #1a1a2e; padding: 15px 30px; }
+        .navbar-custom a { color: #4cd137 !important; text-decoration: none; margin-left: 20px; font-weight: 500; }
+        .navbar-custom a:hover { color: #6be04a !important; }
+        .card-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-top: 25px;
+        }
+        thead { background: #1a1a2e; }
+        thead th { color: white; border: none; padding: 14px 20px; font-weight: 500; }
+        tbody td { padding: 14px 20px; vertical-align: middle; }
+        .section-title { font-weight: 700; color: #1a1a2e; margin: 25px 0 0; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom d-flex justify-content-between align-items-center">
+        <h4 class="text-white mb-0"><i class="fa-solid fa-chart-line" style="color:#4cd137;"></i> Stock Trader</h4>
+        <div>
+            <a href="{% url 'dashboard' %}"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+            <a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h5 class="section-title">Transaction History</h5>
+
+        <div class="card-table mb-5">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Type</th>
+                        <th>Stock</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in transactions %}
+                    <tr>
+                        <td>{{ t.timestamp|date:"d M Y, h:i A" }}</td>
+                        <td>
+                            {% if t.transaction_type == 'BUY' %}
+                                <span class="badge bg-success">BUY</span>
+                            {% else %}
+                                <span class="badge bg-danger">SELL</span>
+                            {% endif %}
+                        </td>
+                        <td><strong>{{ t.stock.symbol }}</strong></td>
+                        <td>{{ t.quantity }}</td>
+                        <td>₹{{ t.price }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5" class="text-center text-muted py-3">No transactions yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
